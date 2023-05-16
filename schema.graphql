@@ -1,0 +1,560 @@
+"""Any"""
+scalar Any
+
+""""""
+input AuthenticateInput {
+  """"""
+  createIfNotExists: Boolean
+
+  """"""
+  emailPassword: EmailPasswordInput!
+}
+
+""""""
+type AuthenticateResponse {
+  """"""
+  identityCreated: Boolean!
+
+  """"""
+  token: String!
+}
+
+""""""
+input CreatePostAuthorInput {
+  """"""
+  id: ID!
+}
+
+""""""
+input CreatePostInput {
+  """"""
+  author: CreatePostAuthorInput!
+
+  """"""
+  body: String!
+}
+
+""""""
+input CreateProfileInput {
+  """"""
+  username: String!
+}
+
+""""""
+type DeleteResponse {
+  """"""
+  success: Boolean!
+}
+
+""""""
+input EmailPasswordInput {
+  """"""
+  email: String!
+
+  """"""
+  password: String!
+}
+
+""""""
+type Follow {
+  """"""
+  createdAt: Timestamp!
+
+  """"""
+  from: Profile!
+
+  """"""
+  fromId: ID!
+
+  """"""
+  id: ID!
+
+  """"""
+  to: Profile!
+
+  """"""
+  toId: ID!
+
+  """"""
+  updatedAt: Timestamp!
+}
+
+""""""
+type FollowConnection {
+  """"""
+  edges: [FollowEdge!]!
+
+  """"""
+  pageInfo: PageInfo!
+}
+
+""""""
+type FollowEdge {
+  """"""
+  node: Follow!
+}
+
+""""""
+input FollowFromInput {
+  """"""
+  id: ID!
+}
+
+""""""
+input FollowInput {
+  """"""
+  from: FollowFromInput!
+
+  """"""
+  to: FollowToInput!
+}
+
+""""""
+input FollowToInput {
+  """"""
+  id: ID!
+}
+
+""""""
+input FollowersInput {
+  """"""
+  after: String
+
+  """"""
+  before: String
+
+  """"""
+  first: Int
+
+  """"""
+  last: Int
+
+  """"""
+  where: FollowersWhere!
+}
+
+""""""
+input FollowersWhere {
+  """"""
+  toId: IdQueryInput!
+}
+
+""""""
+input FollowsInput {
+  """"""
+  after: String
+
+  """"""
+  before: String
+
+  """"""
+  first: Int
+
+  """"""
+  last: Int
+
+  """"""
+  where: FollowsWhere!
+}
+
+""""""
+input FollowsWhere {
+  """"""
+  fromId: IdQueryInput!
+}
+
+"""ISO8601 date"""
+scalar ISO8601
+
+""""""
+input IdQueryInput {
+  """"""
+  equals: ID
+
+  """"""
+  notEquals: ID
+
+  """"""
+  oneOf: [ID]
+}
+
+""""""
+type Identity {
+  """"""
+  createdAt: Timestamp!
+
+  """"""
+  createdBy: String
+
+  """"""
+  email: String
+
+  """"""
+  externalId: String
+
+  """"""
+  id: ID!
+
+  """"""
+  updatedAt: Timestamp!
+}
+
+""""""
+type Like {
+  """"""
+  createdAt: Timestamp!
+
+  """"""
+  id: ID!
+
+  """"""
+  post: Post!
+
+  """"""
+  postId: ID!
+
+  """"""
+  profile: Profile!
+
+  """"""
+  profileId: ID!
+
+  """"""
+  updatedAt: Timestamp!
+}
+
+""""""
+type LikeConnection {
+  """"""
+  edges: [LikeEdge!]!
+
+  """"""
+  pageInfo: PageInfo!
+}
+
+""""""
+type LikeEdge {
+  """"""
+  node: Like!
+}
+
+""""""
+input LikePostInput {
+  """"""
+  post: LikePostPostInput!
+
+  """"""
+  profile: LikePostProfileInput!
+}
+
+""""""
+input LikePostPostInput {
+  """"""
+  id: ID!
+}
+
+""""""
+input LikePostProfileInput {
+  """"""
+  id: ID!
+}
+
+""""""
+type Mutation {
+  """"""
+  authenticate(input: AuthenticateInput!): AuthenticateResponse
+
+  """"""
+  createPost(input: CreatePostInput!): Post!
+
+  """"""
+  createProfile(input: CreateProfileInput!): Profile!
+
+  """"""
+  follow(input: FollowInput!): Follow!
+
+  """"""
+  likePost(input: LikePostInput!): Like!
+
+  """"""
+  requestPasswordReset(input: RequestPasswordResetInput!): RequestPasswordResetResponse
+
+  """"""
+  resetPassword(input: ResetPasswordInput!): ResetPasswordResponse
+
+  """"""
+  unfollow(input: UnfollowInput!): DeleteResponse
+
+  """"""
+  unlikePost(input: UnlikePostInput!): DeleteResponse
+}
+
+""""""
+type PageInfo {
+  """Count of nodes on the current page."""
+  count: Int!
+
+  """The ID cursor of the last node on the current page."""
+  endCursor: String!
+
+  """Whether there are results after the current page."""
+  hasNextPage: Boolean!
+
+  """The ID cursor of the first node on the current page."""
+  startCursor: String!
+
+  """Total count of nodes across all pages."""
+  totalCount: Int!
+}
+
+""""""
+type Post {
+  """"""
+  author: Profile!
+
+  """"""
+  authorId: ID!
+
+  """"""
+  body: String!
+
+  """"""
+  createdAt: Timestamp!
+
+  """"""
+  id: ID!
+
+  """"""
+  updatedAt: Timestamp!
+}
+
+""""""
+type PostConnection {
+  """"""
+  edges: [PostEdge!]!
+
+  """"""
+  pageInfo: PageInfo!
+}
+
+""""""
+type PostEdge {
+  """"""
+  node: Post!
+}
+
+""""""
+input PostLikesInput {
+  """"""
+  after: String
+
+  """"""
+  before: String
+
+  """"""
+  first: Int
+
+  """"""
+  last: Int
+
+  """"""
+  where: PostLikesWhere!
+}
+
+""""""
+input PostLikesWhere {
+  """"""
+  postId: IdQueryInput!
+}
+
+""""""
+input PostsInput {
+  """"""
+  after: String
+
+  """"""
+  before: String
+
+  """"""
+  first: Int
+
+  """"""
+  last: Int
+
+  """"""
+  where: PostsWhere!
+}
+
+""""""
+input PostsWhere {
+  """"""
+  authorId: IdQueryInput!
+}
+
+""""""
+type Profile {
+  """"""
+  createdAt: Timestamp!
+
+  """"""
+  id: ID!
+
+  """"""
+  identity: Identity!
+
+  """"""
+  identityId: ID!
+
+  """"""
+  updatedAt: Timestamp!
+
+  """"""
+  username: String!
+}
+
+""""""
+input ProfileInput {
+  """"""
+  id: ID!
+}
+
+""""""
+input ProfileLikesInput {
+  """"""
+  after: String
+
+  """"""
+  before: String
+
+  """"""
+  first: Int
+
+  """"""
+  last: Int
+
+  """"""
+  where: ProfileLikesWhere!
+}
+
+""""""
+input ProfileLikesWhere {
+  """"""
+  profileId: IdQueryInput!
+}
+
+""""""
+type Query {
+  """"""
+  _health: Boolean
+
+  """"""
+  followers(input: FollowersInput!): FollowConnection!
+
+  """"""
+  follows(input: FollowsInput!): FollowConnection!
+
+  """"""
+  myProfile: Profile
+
+  """"""
+  postLikes(input: PostLikesInput!): LikeConnection!
+
+  """"""
+  posts(input: PostsInput!): PostConnection!
+
+  """"""
+  profile(input: ProfileInput!): Profile
+
+  """"""
+  profileLikes(input: ProfileLikesInput!): LikeConnection!
+
+  """"""
+  timeline(input: TimelineInput!): PostConnection!
+}
+
+""""""
+input RequestPasswordResetInput {
+  """"""
+  email: String!
+
+  """"""
+  redirectUrl: String!
+}
+
+""""""
+type RequestPasswordResetResponse {
+  """"""
+  success: Boolean
+}
+
+""""""
+input ResetPasswordInput {
+  """"""
+  password: String!
+
+  """"""
+  token: String!
+}
+
+""""""
+type ResetPasswordResponse {
+  """"""
+  success: Boolean
+}
+
+""""""
+input TimelineInput {
+  """"""
+  after: String
+
+  """"""
+  before: String
+
+  """"""
+  first: Int
+
+  """"""
+  last: Int
+
+  """"""
+  where: TimelineWhere!
+}
+
+""""""
+input TimelineWhere {
+  """"""
+  profileId: ID!
+}
+
+""""""
+type Timestamp {
+  """Formatted timestamp. Uses standard datetime formats"""
+  formatted(format: String!): String!
+
+  """"""
+  fromNow: String!
+
+  """ISO8601 representation of the timestamp"""
+  iso8601: String!
+
+  """Seconds since unix epoch"""
+  seconds: Int!
+}
+
+""""""
+input UnfollowInput {
+  """"""
+  fromId: ID!
+
+  """"""
+  toId: ID!
+}
+
+""""""
+input UnlikePostInput {
+  """"""
+  postId: ID!
+
+  """"""
+  profileId: ID!
+}
